@@ -22,9 +22,10 @@ CREATE TABLE IF NOT EXISTS weather_readings (
 def init_db():
     try:
         with psycopg2.connect(DATABASE_URL) as conn:
+            conn.set_client_encoding('UTF8') 
             with conn.cursor() as cur:
                 cur.execute(TABLE_SCHEMA)
-                conn.commit()  # this line is only needed if you're not using `with conn`
+                conn.commit() 
     except psycopg2.Error as e:
         print("Database initialization failed:", e)
         raise
