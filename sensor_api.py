@@ -1,4 +1,3 @@
-
 import requests
 from datetime import datetime, timezone
 import pytz
@@ -19,10 +18,6 @@ def get_sensor_data():
         sensors = response.json()
         rows = []
 
-        utc_time = datetime.now(timezone.utc)
-        local_tz = pytz.timezone('America/New_York')
-        local_time = utc_time.astimezone(local_tz)
-
         for device in sensors:
             mac = device.get('macAddress')
             data = device.get('lastData', {})
@@ -32,6 +27,19 @@ def get_sensor_data():
                 continue
 
             sensor_info = SENSORS[mac]
+
+            # Get UTC time from API response if available, otherwise use current time
+            if 'dateutc' in data:
+                utc_time_str = data['dateutc']
+                utc_time_str = utc_time_str.replace('Z', '')
+                utc_time = datetime.fromisoformat(utc_time_str).replace(tzinfo=timezone.utc)
+            else:
+                # Fallback to current UTC time if API doesn't provide timestamp
+                utc_time = datetime.now(timezone.utc)
+
+            # Convert to Eastern Time (Local Time)
+            local_tz = pytz.timezone('America/New_York')
+            local_time = utc_time.astimezone(local_tz)
 
             row = {
                 "Location": sensor_info["name"],
