@@ -1,5 +1,5 @@
 import psycopg2
-from config import DATABASE_URL
+from config import POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB
 from psycopg2.extras import execute_values
 
 TABLE_SCHEMA = """
@@ -19,10 +19,18 @@ CREATE TABLE IF NOT EXISTS weather_readings (
 );
 """
 
+def get_connection():
+    return psycopg2.connect(
+        dbname=POSTGRES_DB,
+        user=POSTGRES_USER,
+        password=POSTGRES_PASSWORD,
+        host=POSTGRES_HOST,
+        port=POSTGRES_PORT
+    )
+
 def init_db():
     try:
-        with psycopg2.connect(DATABASE_URL) as conn:
-            conn.set_client_encoding('UTF8')
+        with get_connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(TABLE_SCHEMA)
             conn.commit()
@@ -33,8 +41,7 @@ def init_db():
 def save_weather_data(data):
     if data is None or data.empty:
         return
-    
-    # Convert DataFrame to list of tuples for insertion
+
     values = [
         (
             row["MacAddress"], row["Location"], row["TemperatureF"], row["Humidity"], row["FeelsLikeF"],
@@ -51,8 +58,7 @@ def save_weather_data(data):
         ) VALUES %s
     """
 
-    with psycopg2.connect(DATABASE_URL) as conn:
+    with get_connection() as conn:
         with conn.cursor() as cur:
-            conn.set_client_encoding('UTF8')
             execute_values(cur, insert_query, values)
         conn.commit()
