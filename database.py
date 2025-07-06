@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS weather_readings (
     "localtime" TIMESTAMPTZ
 );
 """
+# TODO: Update this script to handle N/A values from the sensors for all fields in case of any issues with sensor
 
 def get_connection():
     return psycopg2.connect(
@@ -46,7 +47,7 @@ def save_weather_data(data):
         (
             row["MacAddress"], row["Location"], row["TemperatureF"], row["Humidity"], row["FeelsLikeF"],
             row["HourlyRain"], row["DailyRain"], row["WindSpeedMPH"], row["UV"],
-            row["UTCTime"], row["LocalTime"]
+            row["UTCTime"], row["LocalTime"], row["Latitude"], row["Longitude"]
         )
         for _, row in data.iterrows()
     ]
@@ -54,7 +55,8 @@ def save_weather_data(data):
     insert_query = """
         INSERT INTO weather_readings (
             macaddress, location, temperaturef, humidity, feelslikef,
-            hourlyrain, dailyrain, windspeedmph, uv, utctime, "localtime"
+            hourlyrain, dailyrain, windspeedmph, uv, utctime, "localtime", 
+            latitude, longitude
         ) VALUES %s
     """
 
