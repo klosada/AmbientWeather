@@ -3,13 +3,10 @@ import requests
 from datetime import datetime, timezone
 import pytz
 import pandas as pd
-
 from config import AMBIENT_WEATHER_URL, SENSORS
 from logger import logger
 
-
 def get_sensor_data():
-    """Get current readings from all sensors"""
     try:
         response = requests.get(AMBIENT_WEATHER_URL)
         if response.status_code != 200:
@@ -26,7 +23,7 @@ def get_sensor_data():
         for device in sensors:
             mac = device.get('macAddress')
             data = device.get('lastData', {})
-
+            
             if mac not in SENSORS:
                 logger.warning(f"MAC {mac} not in configured sensor list. Skipping.")
                 continue

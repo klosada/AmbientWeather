@@ -44,7 +44,6 @@ def init_db():
 def save_weather_data(data):
     if data is None or data.empty:
         return
-
     values = [
         (
             row["MacAddress"], row["Location"], row["TemperatureF"], row["Humidity"], row["FeelsLikeF"],
@@ -53,7 +52,6 @@ def save_weather_data(data):
         )
         for _, row in data.iterrows()
     ]
-
     insert_query = """
         INSERT INTO ambient_weather_readings (
             macaddress, location, temperaturef, humidity, feelslikef,
@@ -61,7 +59,6 @@ def save_weather_data(data):
             latitude, longitude
         ) VALUES %s
     """
-
     with get_connection() as conn:
         with conn.cursor() as cur:
             execute_values(cur, insert_query, values)

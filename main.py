@@ -6,7 +6,6 @@ from arcgis_connection import publish_to_arcgis
 def main():
     logger.info("Initializing database...")
     init_db()
-
     logger.info("Fetching sensor data...")
     readings = get_sensor_data()
 
