@@ -21,8 +21,7 @@ def get_sensor_data():
 
         utc_time = datetime.now(timezone.utc)
         local_tz = pytz.timezone('America/New_York')
-        local_time = utc_time.astimezone(local_tz).replace(tzinfo=None)
-
+        local_time = utc_time.astimezone(local_tz)
 
         for device in sensors:
             mac = device.get('macAddress')
@@ -37,8 +36,8 @@ def get_sensor_data():
             row = {
                 "Location": sensor_info["name"],
                 "MacAddress": mac,
-                "latitude": sensor_info["lat"],
-                "longitude": sensor_info["lon"],
+                "Latitude": sensor_info["lat"],
+                "Longitude": sensor_info["lon"],
                 "TemperatureF": data.get("tempf", "N/A"),
                 "Humidity": data.get("humidity", "N/A"),
                 "FeelsLikeF": data.get("feelsLike", "N/A"),
@@ -46,9 +45,8 @@ def get_sensor_data():
                 "DailyRain": data.get("dailyrainin", "N/A"),
                 "WindSpeedMPH": data.get("windspeedmph", "N/A"),
                 "UV": data.get("uv", "N/A"),
-                "UTCTime": utc_time,
-                "LocalTime": local_time.replace(tzinfo=None)
-
+                "UTCTime": utc_time.strftime("%Y-%m-%d %H:%M:%S"),
+                "LocalTime": local_time.strftime("%Y-%m-%d %H:%M:%S %Z")
             }
             rows.append(row)
 
