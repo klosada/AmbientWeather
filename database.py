@@ -20,7 +20,6 @@ CREATE TABLE IF NOT EXISTS ambient_weather_readings (
     longitude REAL
 );
 """
-# TODO: Update this script to handle N/A values from the sensors for all fields in case of any issues with sensor
 
 def get_connection():
     return psycopg2.connect(
@@ -44,10 +43,17 @@ def init_db():
 def save_weather_data(data):
     if data is None or data.empty:
         return
+    
+    def safe_float(val):
+        try:
+            return float(val)
+        except (ValueError, TypeError):
+            return None
+
     values = [
         (
-            row["MacAddress"], row["Location"], row["TemperatureF"], row["Humidity"], row["FeelsLikeF"],
-            row["HourlyRain"], row["DailyRain"], row["WindSpeedMPH"], row["UV"],
+            row["MacAddress"], row["Location"], safe_float(row["TemperatureF"]), safe_float(row["Humidity"]), safe_float(row["FeelsLikeF"]),
+            safe_float(row["HourlyRain"]), safe_float(row["DailyRain"]), safe_float(row["WindSpeedMPH"]), safe_float(row["UV"]),
             row["UTCTime"], row["LocalTime"], row["latitude"], row["longitude"]
         )
         for _, row in data.iterrows()

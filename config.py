@@ -35,10 +35,11 @@ SENSORS = {
         "name": "Sycamore Rec Center",
         "lat": 33.774452,
         "lon": -84.289228
-    }
-}   ## ARC1 is indoors, so causes NA data handling errors.
+    }  
+    # # ARC1 is indoors, so causes NA data handling errors.
     # "F8:B3:B7:83:84:9A": {
     #     "name": "ARC1",
     #     "lat": 33.804693,
     #     "lon": -84.288019
     # }
+}
