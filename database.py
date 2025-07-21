@@ -1,6 +1,6 @@
 import psycopg2
-from config import POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB
 from psycopg2.extras import execute_values
+from config import POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB
 
 TABLE_SCHEMA = """
 CREATE TABLE IF NOT EXISTS ambient_weather_readings (

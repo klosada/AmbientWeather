@@ -9,7 +9,6 @@ POSTGRES_HOST = os.getenv("PG_HOST")
 POSTGRES_PORT = os.getenv("PG_PORT")
 POSTGRES_DB = os.getenv("PG_DATABASE")
 
-
 API_KEY = os.getenv("API_KEY")
 APP_KEY = os.getenv("APP_KEY")
 AMBIENT_WEATHER_URL = f"https://rt.ambientweather.net/v1/devices?applicationKey={APP_KEY}&apiKey={API_KEY}"
