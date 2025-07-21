@@ -15,14 +15,29 @@ APP_KEY = os.getenv("APP_KEY")
 AMBIENT_WEATHER_URL = f"https://rt.ambientweather.net/v1/devices?applicationKey={APP_KEY}&apiKey={API_KEY}"
 
 SENSORS = {
-    "40:91:51:64:78:95": {
-        "name": "Mattsensor",
-        "lat": 33.804459,
-        "lon": -84.287715
+    # "40:91:51:64:78:95": {
+    #     "name": "Decatur1",
+    #     "lat": 33.804459,
+    #     "lon": -84.287715
+    # },
+    # "F8:B3:B7:83:5A:BD": {
+    #     "name": "Decatur2",
+    #     "lat": 33.804693,
+    #     "lon": -84.288019
+    # },
+    "48:E7:29:5F:3C:C9": {
+        "name": "Oakhurst Rec Center",
+        "lat": 33.760820, 
+        "lon": -84.308795
     },
-    "F8:B3:B7:83:5A:BD": {
-        "name": "Secondsensor",
-        "lat": 33.804693,
-        "lon": -84.288019
+    "C4:D8:D5:3B:83:75": {
+        "name": "Sycamore Rec Center",
+        "lat": 33.774452,
+        "lon": -84.289228
     }
 }
+    # "F8:B3:B7:83:84:9A": {
+    #     "name": "ARC1",
+    #     "lat": 33.804693,
+    #     "lon": -84.288019
+    # }
