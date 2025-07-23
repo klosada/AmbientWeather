@@ -19,6 +19,9 @@ jobs:
       API_KEY: ${{ secrets.API_KEY }}
       APP_KEY: ${{ secrets.APP_KEY }}
 
+      ARCGIS_USERNAME: ${{ secrets.ARCGIS_USERNAME}}
+      ARCGIS_PASSWORD: ${{ secrets.ARCGIS_PASSWORD}}
+
     steps:
       - uses: actions/checkout@v3
 
