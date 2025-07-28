@@ -30,6 +30,7 @@ def get_sensor_data():
 
             sensor_info = SENSORS[mac]
 
+# add the other data variables here
             row = {
                 "Location": sensor_info["name"],
                 "MacAddress": mac,
@@ -40,7 +41,17 @@ def get_sensor_data():
                 "FeelsLikeF": data.get("feelsLike", "N/A"),
                 "HourlyRain": data.get("hourlyrainin", "N/A"),
                 "DailyRain": data.get("dailyrainin", "N/A"),
+                "MonthlyRain": data.get("monthlyrainin", "N/A"),
+                "YearlyRain": data.get("yearlyrainin", "N/A"),
                 "WindSpeedMPH": data.get("windspeedmph", "N/A"),
+                "WindGustMPH": data.get("windgustmph", "N/A"),
+                "MaxDailyGust": data.get("maxdailygust", "N/A"),
+                "WindDir": data.get("winddir", "N/A"),
+                "BaromRelIn": data.get("baromrelin", "N/A"),
+                "BaromAbsIn": data.get("baromabsin", "N/A"),
+                "TempInF": data.get("tempinf", "N/A"),
+                "HumidityIn": data.get("humidityin", "N/A"),
+                "DewPoint": data.get("dewPoint", "N/A"),
                 "UV": data.get("uv", "N/A"),
                 "UTCTime": utc_time,
                 "LocalTime": local_time.replace(tzinfo=None)

@@ -5,6 +5,7 @@ from arcgis.geometry import Geometry
 from config import POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB
 import psycopg2
 import pandas as pd
+import pytz
 
 # ArcGIS Credentials
 load_dotenv()  
@@ -13,6 +14,7 @@ password = os.environ["ARCGIS_PASSWORD"]
 gis = GIS(url="https://garc.maps.arcgis.com/home", username=username, password=password)
 
 from arcgis.features import FeatureLayer
+
 
 # Fetch recent data from PostgreSQL
 def fetch_weather_data():
@@ -33,7 +35,9 @@ def fetch_weather_data():
     conn.close()
     df['utctime'] = pd.to_datetime(df['utctime'], utc=True)
     df['localtime'] = pd.to_datetime(df['localtime'])
+
     return df
+
 
 # Update hosted feature layer
 def publish_to_arcgis(df: pd.DataFrame, item_id: str):
@@ -52,6 +56,7 @@ def publish_to_arcgis(df: pd.DataFrame, item_id: str):
 
     df = df.dropna(subset=['geometry'])
     df.spatial.set_geometry('geometry', inplace=True)
+
 
     item = gis.content.get(item_id)
     layer = item.layers[0]

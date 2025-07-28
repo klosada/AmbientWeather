@@ -12,7 +12,17 @@ CREATE TABLE IF NOT EXISTS ambient_weather_readings (
     feelslikef REAL,
     hourlyrain REAL,
     dailyrain REAL,
+    monthlyrain REAL,
+    yearlyrain REAL,
     windspeedmph REAL,
+    windgustmph REAL,
+    maxdailygust REAL,
+    winddir REAL,
+    baromrelin REAL,
+    baromabsin REAL,
+    tempinf REAL,
+    humidityin REAL,
+    dewpoint REAL,
     uv REAL,
     utctime TIMESTAMPTZ,
     "localtime" TIMESTAMP,
@@ -49,11 +59,14 @@ def save_weather_data(data):
             return float(val)
         except (ValueError, TypeError):
             return None
-
+        
     values = [
         (
             row["MacAddress"], row["Location"], safe_float(row["TemperatureF"]), safe_float(row["Humidity"]), safe_float(row["FeelsLikeF"]),
-            safe_float(row["HourlyRain"]), safe_float(row["DailyRain"]), safe_float(row["WindSpeedMPH"]), safe_float(row["UV"]),
+            safe_float(row["HourlyRain"]), safe_float(row["DailyRain"]), safe_float(row["MonthlyRain"]), safe_float(row["YearlyRain"]),
+            safe_float(row["WindSpeedMPH"]), safe_float(row["WindGustMPH"]), safe_float(row["MaxDailyGust"]),
+            safe_float(row["WindDir"]), safe_float(row["BaromRelIn"]), safe_float(row["BaromAbsIn"]), safe_float(row["TempInF"]),
+            safe_float(row["HumidityIn"]), safe_float(row["DewPoint"]), safe_float(row["UV"]),
             row["UTCTime"], row["LocalTime"], row["latitude"], row["longitude"]
         )
         for _, row in data.iterrows()
@@ -61,8 +74,7 @@ def save_weather_data(data):
     insert_query = """
         INSERT INTO ambient_weather_readings (
             macaddress, location, temperaturef, humidity, feelslikef,
-            hourlyrain, dailyrain, windspeedmph, uv, utctime, "localtime", 
-            latitude, longitude
+            hourlyrain, dailyrain, monthlyrain, yearlyrain, windspeedmph, windgustmph, maxdailygust, winddir, baromrelin, baromabsin, tempinf, humidityin, dewpoint, uv, utctime, "localtime", latitude, longitude
         ) VALUES %s
     """
     with get_connection() as conn:
