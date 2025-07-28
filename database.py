@@ -71,6 +71,7 @@ def save_weather_data(data):
         )
         for _, row in data.iterrows()
     ]
+    
     insert_query = """
         INSERT INTO ambient_weather_readings (
             macaddress, location, temperaturef, humidity, feelslikef,

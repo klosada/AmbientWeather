@@ -27,7 +27,6 @@ def get_sensor_data():
             if mac not in SENSORS:
                 logger.warning(f"MAC {mac} not in configured sensor list. Skipping.")
                 continue
-
             sensor_info = SENSORS[mac]
 
 # add the other data variables here

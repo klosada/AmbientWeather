@@ -13,9 +13,6 @@ username = os.environ["ARCGIS_USERNAME"]
 password = os.environ["ARCGIS_PASSWORD"]
 gis = GIS(url="https://garc.maps.arcgis.com/home", username=username, password=password)
 
-from arcgis.features import FeatureLayer
-
-
 # Fetch recent data from PostgreSQL
 def fetch_weather_data():
     conn = psycopg2.connect(
@@ -38,7 +35,6 @@ def fetch_weather_data():
 
     return df
 
-
 # Update hosted feature layer
 def publish_to_arcgis(df: pd.DataFrame, item_id: str):
     if df.empty:
@@ -56,7 +52,6 @@ def publish_to_arcgis(df: pd.DataFrame, item_id: str):
 
     df = df.dropna(subset=['geometry'])
     df.spatial.set_geometry('geometry', inplace=True)
-
 
     item = gis.content.get(item_id)
     layer = item.layers[0]

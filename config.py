@@ -35,7 +35,7 @@ SENSORS = {
         "lat": 33.774204,
         "lon": -84.292998
     }  
-    # # ARC1 is indoors and will be moved.
+    # # ARC1 is indoors for testing and will be moved.
     # "F8:B3:B7:83:84:9A": {
     #     "name": "ARC1",
     #     "lat": 33.804693,
