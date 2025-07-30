@@ -3,6 +3,7 @@ from sensor_api import get_sensor_data
 from database import save_weather_data, init_db
 from arcgis_connection import publish_to_arcgis
 
+
 def main():
     logger.info("Initializing database...")
     init_db()

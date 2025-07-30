@@ -5,7 +5,7 @@ from arcgis.geometry import Geometry
 from config import POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB
 import psycopg2
 import pandas as pd
-import pytz
+
 
 # ArcGIS Credentials
 load_dotenv()  

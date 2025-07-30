@@ -6,6 +6,7 @@ from logger import logger
 from datetime import datetime, timezone
 from config import AMBIENT_WEATHER_URL, SENSORS
 
+
 def get_sensor_data():
     try:
         response = requests.get(AMBIENT_WEATHER_URL)
