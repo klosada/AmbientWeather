@@ -76,4 +76,3 @@ APP_KEY=your_ambientweather_app_key
 ARCGIS_USERNAME=your_arcgis_username
 ARCGIS_PASSWORD=your_arcgis_password
 
-## New Supabase account was created under researchanalytics229@gmail.com
